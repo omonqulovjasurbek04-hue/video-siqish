@@ -26,8 +26,8 @@ USE_LOCAL_SERVER = os.getenv("USE_LOCAL_SERVER", "false").lower() == "true"
 LOCAL_SERVER_URL = os.getenv("LOCAL_SERVER_URL", "http://localhost:8081")
 
 
-MAX_SIZE_LOCAL = int(1.8 * 1024 * 1024 * 1024)
-MAX_SIZE_CLOUD = 20 * 1024 * 1024
+MAX_SIZE_LOCAL = int(2 * 1024 * 1024 * 1024)    # 2 GB — Local Bot API Server
+MAX_SIZE_CLOUD = int(2 * 1024 * 1024 * 1024)     # 2 GB — Cloud uchun ham
 
 COMPRESS_PROFILES = {
     "heavy": {

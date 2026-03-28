@@ -73,10 +73,9 @@ async def handle_video(msg: Message, state: FSMContext, bot: Bot):
     max_limit = MAX_SIZE_LOCAL if USE_LOCAL_SERVER else MAX_SIZE_CLOUD
 
     if file_size and file_size > max_limit:
-        sz_str = "1.8 GB" if USE_LOCAL_SERVER else "20 MB"
         await msg.answer(
             f"❌ Fayl hajmi katta: <b>{fmt_size(file_size)}</b>\n\n"
-            f"Bot faqatgina {sz_str} gacha bo'lgan videolarni qabul qila oladi.",
+            f"Bot faqatgina 2 GB gacha bo'lgan videolarni qabul qila oladi.",
             parse_mode="HTML",
         )
         return
