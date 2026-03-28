@@ -17,21 +17,18 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN or BOT_TOKEN == "YOUR_BOT_TOKEN_HERE":
     raise ValueError(".env faylida BOT_TOKEN ni to'ldiring!")
 
-# ── Directories ────────────────────────────────────────────────────────────
 UPLOAD_DIR = Path("bot_uploads")
 OUTPUT_DIR = Path("bot_outputs")
 UPLOAD_DIR.mkdir(exist_ok=True)
 OUTPUT_DIR.mkdir(exist_ok=True)
 
-# ── Local Telegram Bot API Server ──────────────────────────────────────────
 USE_LOCAL_SERVER = os.getenv("USE_LOCAL_SERVER", "false").lower() == "true"
 LOCAL_SERVER_URL = os.getenv("LOCAL_SERVER_URL", "http://localhost:8081")
 
-# ── File size limits ───────────────────────────────────────────────────────
-MAX_SIZE_LOCAL = int(1.8 * 1024 * 1024 * 1024)   # 1.8 GB  (local server)
-MAX_SIZE_CLOUD = 20 * 1024 * 1024                 # 20 MB   (Telegram cloud)
 
-# ── Compression profiles ──────────────────────────────────────────────────
+MAX_SIZE_LOCAL = int(1.8 * 1024 * 1024 * 1024)
+MAX_SIZE_CLOUD = 20 * 1024 * 1024
+
 COMPRESS_PROFILES = {
     "heavy": {
         "label":  "🗜 Kengaytirilgan siqish",
@@ -57,7 +54,6 @@ PLATFORM_PROFILES = {
     "twitter":   {"label": "🐦 Twitter/X",  "crf": 25, "audio": "128k", "scale": "1280:720",  "fps": 30},
 }
 
-# ── Custom settings defaults ─────────────────────────────────────────────
 RES_OPTS   = ["-2:-2", "1920:1080", "1280:720", "854:480", "640:360"]
 RES_LABELS = ["Asl", "1080p", "720p", "480p", "360p"]
 FPS_OPTS   = [0, 24, 30, 60]
@@ -70,6 +66,5 @@ DEFAULT_CUSTOM = {
 
 ALLOWED_EXTS = {"mp4", "mov", "mkv", "avi", "webm", "flv", "wmv"}
 
-# ── Cleanup settings ─────────────────────────────────────────────────────
-CLEANUP_INTERVAL_MIN = 30     # Har 30 daqiqada tozalash
+CLEANUP_INTERVAL_MIN = 30
 CLEANUP_MAX_AGE_MIN  = 60 
