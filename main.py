@@ -1,5 +1,3 @@
-
-
 import os
 import asyncio
 import json
@@ -1349,6 +1347,22 @@ async def fallback_global(msg: Message, state: FSMContext):
         await state.set_state(VideoStates.waiting_video)
         await msg.answer("Boshlash uchun:", reply_markup=kb_main())
 
+from aiohttp import web
+
+async def handle_health(request):
+    return web.Response(text="VideoBot is running!")
+
+async def start_dummy_server():
+    app = web.Application()
+    app.router.add_get("/", handle_health)
+    app.router.add_get("/health", handle_health)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    port = int(os.environ.get("PORT", 8080))
+    site = web.TCPSite(runner, '0.0.0.0', port)
+    await site.start()
+    log.info(f"Dummy HTTP server started on port {port} for Railway health checks.")
+
 # ── Main ───────────────────────────────────────────────────────────────────
 async def main():
     dp.include_router(router)
@@ -1357,6 +1371,11 @@ async def main():
     if not check_ffmpeg():
         log.warning("FFmpeg topilmadi! Video siqish ishlamaydi.")
     await bot.delete_webhook(drop_pending_updates=True)
+    
+    # Railway (va shunga o'xshash platformalar) uchun fake server:
+    if "PORT" in os.environ or os.getenv("RAILWAY_ENVIRONMENT"):
+        await start_dummy_server()
+
     await dp.start_polling(bot)
 
 if __name__ == "__main__":

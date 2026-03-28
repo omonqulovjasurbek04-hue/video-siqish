@@ -11,5 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-RUN mkdir -p downloads outputs
-CMD ["python3", "videobot.py"]
+RUN mkdir -p bot_uploads bot_outputs
+# Railway PORT ni talab qiladi (bot uchun shart emas, lekin u kutishi mumkin)
+ENV PORT=8080
+CMD ["python3", "main.py"]
