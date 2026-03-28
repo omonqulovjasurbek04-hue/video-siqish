@@ -5,13 +5,11 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-
+RUN apt-get update && apt-get install -y ffmpeg
 COPY . .
-RUN mkdir -p bot_uploads bot_outputs
 # Railway PORT ni talab qiladi (bot uchun shart emas, lekin u kutishi mumkin)
 ENV PORT=8080
 CMD ["python3", "main.py"]
