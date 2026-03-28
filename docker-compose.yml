@@ -5,8 +5,19 @@ services:
     build: .
     container_name: videobot
     restart: always
-    environment:
-      - BOT_TOKEN=${BOT_TOKEN}
+    env_file:
+      - .env
     volumes:
-      - ./downloads:/app/downloads
-      - ./outputs:/app/outputs
+      - ./bot_uploads:/app/bot_uploads
+      - ./bot_outputs:/app/bot_outputs
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

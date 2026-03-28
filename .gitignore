@@ -170,3 +170,5 @@ Thumbs.db
 # Bot specific
 *.session
 *.session-journal
+bot_uploads/
+bot_outputs/
