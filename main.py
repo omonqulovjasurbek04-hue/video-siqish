@@ -239,8 +239,9 @@ def kb_custom(s: dict) -> InlineKeyboardMarkup:
         text=f"🔇 Ovoz o'chirish: {'✅' if s.get('remove_audio') else '❌'}",
         callback_data="cs:toggle_audio"
     )
+    sub_status = "Saqlash ✅" if s.get('keep_sub', True) else "O'chirish ❌"
     b.button(
-        text=f"📝 Subtitle: {'Saqlash ✅' if s.get('keep_sub', True) else 'O\'chirish ❌'}",
+        text=f"📝 Subtitle: {sub_status}",
         callback_data="cs:toggle_sub"
     )
     b.button(text="⚡ Siqishni boshlash", callback_data="cs:start")
